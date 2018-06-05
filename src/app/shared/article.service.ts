@@ -14,7 +14,7 @@ export class ArticleService {
   
   constructor(private http: HttpClient) { }
   
-  public fetchArticles(queryCategory: string) {
+  public fetchArticles(queryCategory?: string) {
     this.queryCategory = queryCategory;
     this.articles = [];
     this.http.get(`${this.API_URL}?category=${this.queryCategory}`)
