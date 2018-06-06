@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="collapse navbar-collapse" id="navbarColor02">
-    <form class="form-inline my-2 my-lg-10" (ngSubmit)="doSearch()">
+    <form class="form-inline my-2 my-lg-10" (ngSubmit)="getArticlesByQuery()">
       <input class="form-control mr-sm-2" type="text"  placeholder="Search" [(ngModel)]="query" [ngModelOptions]="{standalone:true}">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -13,5 +13,8 @@
 </div>
 </nav>
 <div class="col">
-	<app-article-list [articles]="articleService.articles"></app-article-list>
+	<app-article-list [articles]="articleService.visibleArticles"></app-article-list>
 </div>
+<app-pagination [page]="articleService.page"
+				[totalPages]="articleService.totalPages"
+				(changePage)="articleService.getArticlesByPage($event)"></app-pagination>

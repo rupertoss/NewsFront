@@ -6,12 +6,14 @@ import { ArticleListComponent } from './article-list/article-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectorComponent } from './selector/selector.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ArticleListComponent,
-    SelectorComponent
+    SelectorComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

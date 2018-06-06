@@ -12,7 +12,10 @@ export class ArticleService {
   private API_URL: string = 'http://localhost:8080/news';
   public country: string = 'pl';
   public category: string = 'technology';
-  public articles: Article[];
+  private articles: Article[];
+  public visibleArticles: Article[];
+  public page;
+  public totalPages;
   
   constructor(private http: HttpClient) { }
   
@@ -22,7 +25,11 @@ export class ArticleService {
       .map(data => data['articles'])
       .map(articles => {
          return articles.map(article => this.articleFactory(article))})
-       .subscribe(articles => this.articles = articles)
+       .subscribe(articles => {
+          this.articles = articles,
+          this.totalPages = Math.ceil(articles.length / 4)
+          this.getArticlesByPage(1)} );
+    this.page = 1;
   }
   
   public getArticlesByQuery(query: string) {
@@ -30,7 +37,16 @@ export class ArticleService {
       .map(data => data['articles'])
       .map(articles => {
         return articles.map(article => this.articleFactory(article))})
-      .subscribe(articles => this.articles = articles)
+      .subscribe(articles => {
+          this.articles = articles,
+          this.totalPages = Math.ceil(articles.length / 4)
+          this.getArticlesByPage(1)} );
+    this.page = 1;
+  }
+  
+  public getArticlesByPage(page: number) {
+    this.visibleArticles = this.articles.slice(page * 4 - 4, page * 4);
+    this.page = page;
   }
   
   private articleFactory(article: any): Article {
