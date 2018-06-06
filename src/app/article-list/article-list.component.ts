@@ -15,7 +15,8 @@ export class ArticleListComponent implements OnInit {
   constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
-    this.articleService.fetchArticles();
+    this.articleService.getArticlesByCountryAndCategory('technology')
+       .subscribe(articles => { this.articles = articles; });
   }
 
 }
