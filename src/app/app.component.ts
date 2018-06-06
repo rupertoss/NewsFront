@@ -1,3 +1,4 @@
+import { ArticleService } from './shared/article.service';
 import { Component } from '@angular/core';
 
 @Component({

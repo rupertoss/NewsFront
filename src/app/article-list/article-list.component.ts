@@ -12,11 +12,7 @@ export class ArticleListComponent implements OnInit {
   @Input()
   private articles: Article[];
   
-  constructor(private articleService: ArticleService) { }
-
   ngOnInit() {
-    this.articleService.getArticlesByCountryAndCategory('technology')
-       .subscribe(articles => { this.articles = articles; });
   }
-
+  
 }

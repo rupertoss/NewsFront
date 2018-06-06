@@ -12,16 +12,25 @@ export class ArticleService {
   private API_URL: string = 'http://localhost:8080/news';
   public country: string = 'pl';
   public category: string = 'technology';
+  public articles: Article[];
   
   constructor(private http: HttpClient) { }
   
-  public getArticlesByCountryAndCategory(category?: string): Observable<Article[]> {
+  public getArticlesByCountryAndCategory(category?: string) {
     this.category = category;
-    return this.http.get(`${this.API_URL}/${this.country}/${this.category}`)
+    this.http.get(`${this.API_URL}/${this.country}/${this.category}`)
       .map(data => data['articles'])
       .map(articles => {
-         return articles.map(article => this.articleFactory(article))
-      })
+         return articles.map(article => this.articleFactory(article))})
+       .subscribe(articles => this.articles = articles)
+  }
+  
+  public getArticlesByQuery(query: string) {
+    this.http.get(`${this.API_URL}/${query}`)
+      .map(data => data['articles'])
+      .map(articles => {
+        return articles.map(article => this.articleFactory(article))})
+      .subscribe(articles => this.articles = articles)
   }
   
   private articleFactory(article: any): Article {

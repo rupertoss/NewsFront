@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <form class="form-inline my-2 my-lg-10" (ngSubmit)="doSearch()">
+      <input class="form-control mr-sm-2" type="text"  placeholder="Search" [(ngModel)]="query" [ngModelOptions]="{standalone:true}">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="{{category === selectedCategory ? 'btn btn-primary active' : 'btn btn-primary' }}"
+  		 *ngFor="let category of categories" (click)="getArticlesByCategory(category)">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked=""> {{category}}
+  </label>
+</div>
+</nav>
+<div class="col">
+	<app-article-list [articles]="articleService.articles"></app-article-list>
+</div>
